@@ -153,23 +153,6 @@ def main():
                 else:
                     st.markdown("Fake news!")
 
-
-
-# from flask import Flask
-# from flask import request
-# import json
-# app = Flask(__name__)
-#
-# @app.route("/api/predict",methods=['POST'])
-# def predict():
-#     record = json.loads(request.data)
-#     pred_rs = model_predict(record['model'], record['text'])
-#     if pred_rs == 0:
-#         return 'Non Fake News!!!'
-#     else:
-#         return 'Fake News!!!'
-#
-# app.run(port=8888)
 if __name__ == "__main__":
     main()
 
