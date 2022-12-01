@@ -54,7 +54,6 @@ def vietnamese_text_preprocessing(text):
 
 
 ###################################
-# Hàm dự đoán
 with open('Model/tokenizer.pkl', 'rb') as handle:
     tokenizer_saved = pickle.load(handle)
 with open('Model/tfidf_vector.pkl', 'rb') as in_strm:
@@ -73,7 +72,8 @@ model_dict = {
         "SVM": "SVM",
         "RNN": "RNN"
     }
-################################################################
+####################################################
+# Hàm dự đoán
 def model_predict(model, text):
     if (model == 'RNN'):
         print('RNNNNNNNNN')
@@ -105,6 +105,9 @@ app = Flask(__name__)
 @app.route("/api/predict",methods=['POST'])
 def predict():
     record = json.loads(request.data)
-    pred_rs = model_predict(record['model'], record['text'])
-    return str(pred_rs)
+    if(record['text']==''):
+        return '2'
+    else:
+        pred_rs = model_predict(record['model'], record['text'])
+        return str(pred_rs)
 app.run(port=8888, host = '0.0.0.0')
