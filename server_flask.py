@@ -54,17 +54,17 @@ def vietnamese_text_preprocessing(text):
 
 
 ###################################
-with open('Model/tokenizer.pkl', 'rb') as handle:
+with open('Model/11.1.23/tokenizer.pkl', 'rb') as handle:
     tokenizer_saved = pickle.load(handle)
-with open('Model/tfidf_vector.pkl', 'rb') as in_strm:
+with open('Model/11.1.23/tfidf_vector.pkl', 'rb') as in_strm:
     saved_tfidf = dill.load(in_strm)
-with open('Model/nb-model.pkl', 'rb') as in_strm:
+with open('Model/11.1.23/nb-model.pkl', 'rb') as in_strm:
     saved_nb = dill.load(in_strm)
-with open('Model/tree-model.pkl', 'rb') as in_strm:
+with open('Model/11.1.23/tree-model.pkl', 'rb') as in_strm:
     saved_tree = dill.load(in_strm)
-with open('Model/svc-model.pkl', 'rb') as in_strm:
+with open('Model/11.1.23/svc-model.pkl', 'rb') as in_strm:
     saved_svc = dill.load(in_strm)
-model_rnn = load_model("Model/rnn-model_final.h5")
+model_rnn = load_model("Model/11.1.23/rnn-model_final.h5")
 
 model_dict = {
         "Naive Bayes": "NB",

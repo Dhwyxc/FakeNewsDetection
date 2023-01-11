@@ -10,7 +10,7 @@ for id in range(1,131):
     myurl = f"https://vtc.vn/the-thao-34/trang-{id}.html"
     html = urlopen(myurl).read()
     soupified = BeautifulSoup(html, "html.parser")
-    container = soupified.select(".ar1.clearfix")
+    container = soupified.select(".grid.gap-15.layout-73 .clearfix.last-child-article > article")
     for i in range(len(container)):
         post = container[i]
         link =f"https://vtc.vn{post.find('a').get('href')}"
@@ -29,7 +29,7 @@ for id in range(1,131):
                 news_items.append([s_rmSpace, 0])
 
 data_header = ['data','label']
-with open('../Data/real_news.csv', 'w',encoding='utf-8') as f:
+with open('../Data/real_news_11.1.23.csv', 'w',encoding='utf-8') as f:
     writer_object = writer(f)
     writer_object.writerow(data_header)
     writer_object.writerows(news_items)
