@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask import request
 import json
 import dill
@@ -102,6 +102,10 @@ def model_predict(model, text):
 
 ##############################################################################################
 app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 @app.route("/api/predict",methods=['POST'])
 def predict():
     record = json.loads(request.data)
@@ -110,4 +114,5 @@ def predict():
     else:
         pred_rs = model_predict(record['model'], record['text'])
         return str(pred_rs)
+
 app.run(port=8888, host = '0.0.0.0')
