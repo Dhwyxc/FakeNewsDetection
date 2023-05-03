@@ -1,16 +1,16 @@
-from flask import Flask, render_template
+from flask import Flask
 from flask import request
 import json
 import dill
 import re
 import tensorflow as tf
 from underthesea import word_tokenize
-from keras.models import load_model
 import pickle
-from flask import Flask
+from keras.models import load_model
+
 #################################
 # Các hàm tiền xử lý dữ liệu từ file notebook
-
+print(tf.__version__)
 with open("Data/vn-stopword.txt",encoding='utf-8') as file:
     stopwords = file.readlines()
     stopwords = [word.rstrip() for word in stopwords]
@@ -54,17 +54,18 @@ def vietnamese_text_preprocessing(text):
 
 
 ###################################
-with open('Model/11.1.23/tokenizer.pkl', 'rb') as handle:
+with open('Model/19.4.23/tokenizer.pkl', 'rb') as handle:
     tokenizer_saved = pickle.load(handle)
-with open('Model/11.1.23/tfidf_vector.pkl', 'rb') as in_strm:
+with open('Model/19.4.23/tfidf_vector.pkl', 'rb') as in_strm:
     saved_tfidf = dill.load(in_strm)
-with open('Model/11.1.23/nb-model.pkl', 'rb') as in_strm:
+with open('Model/19.4.23/nb-model.pkl', 'rb') as in_strm:
     saved_nb = dill.load(in_strm)
-with open('Model/11.1.23/tree-model.pkl', 'rb') as in_strm:
+with open('Model/19.4.23/tree-model.pkl', 'rb') as in_strm:
     saved_tree = dill.load(in_strm)
-with open('Model/11.1.23/svc-model.pkl', 'rb') as in_strm:
+with open('Model/19.4.23/svc-model.pkl', 'rb') as in_strm:
     saved_svc = dill.load(in_strm)
-model_rnn = load_model("Model/11.1.23/rnn-model_final.h5")
+model_rnn = load_model("Model/19.4.23/rnn-model_final.h5")
+model_rnn.compile()
 
 model_dict = {
         "Naive Bayes": "NB",
@@ -102,10 +103,6 @@ def model_predict(model, text):
 
 ##############################################################################################
 app = Flask(__name__)
-
-@app.route('/')
-def index():
-    return render_template('index.html')
 @app.route("/api/predict",methods=['POST'])
 def predict():
     record = json.loads(request.data)
